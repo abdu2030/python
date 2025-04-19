@@ -31,8 +31,6 @@ for key in bid_collection:
         values=bid_collection[key]
         winner=key
 print(f"THE WINNER IS {winner} WITH THE BID OF ${values}")
-# TODO-2: Save data into dictionary {name: price}
-# TODO-3: Whether if new bids need to be added
-# TODO-4: Compare bids in dictionary
+
 
 
