@@ -63,7 +63,7 @@ while continue_game:
         elif computer_total <= 21 and computer_total < player_total and player_total <=21:
             for play in computer:
                 print(f"DEALER cards: {play}")#testing
-            print(f"{computer_total} < {player_total},YOU WIN 🙃")
+            print(f"{computer_total} < {player_total},YOU WIN ")
     else:
         continue_game=False
 
