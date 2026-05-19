@@ -51,7 +51,7 @@ while game_is_on:
             cars.all_cars.remove(car)
             continue
         # collision detection: if a car is close to the player, reset player
-        if car.distance(player) < 37:
+        if car.distance(player) < 20:
             # handle collision - reset player to start
             player.game_over()
             score.goto(0,0)
