@@ -117,7 +117,7 @@ def safe_position(n, k):
 
 ### For convert.py
 ```bash
-python convert.py
+python convertGEEZtoARB.py
 ```
 This will execute the test cases and display the conversions from Geez to Arabic numerals.
 
