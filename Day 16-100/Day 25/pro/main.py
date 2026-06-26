@@ -38,7 +38,7 @@ while len(guessed_states) < 50:
 
         state_row = data[data["state"] == answer_state]
 
-        x = state_row["x"].iloc[0]
+        x = state_row["x"].iloc[0].to
         y = state_row["y"].iloc[0]
 
         writer.goto(x, y)
