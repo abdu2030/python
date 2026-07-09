@@ -1,4 +1,3 @@
-# Python Projects Collection
 
 This repository contains small Python projects organized by day.
 
