@@ -180,9 +180,6 @@ The game implements a key tracking system that:
 - Ensure you have Python and Turtle graphics installed correctly
 - Try running from a terminal to see any error messages
 
-## Author
-
-Created as part of the "100 Days of Code - The Complete Python Pro Bootcamp" course.
 
 ## License
 
