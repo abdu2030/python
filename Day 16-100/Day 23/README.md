@@ -51,14 +51,7 @@ The game will open in a Turtle graphics window.
 - Screen size: `screen.setup(width=600, height=600)` in `main.py`.
 - Collision sensitivity: `if car.distance(player) < 20:` in `main.py` — change the threshold if collisions are too permissive or too strict.
 
-## Suggested improvements / extensions
 
-- End the game when collision occurs and display a "Game Over" message.
-- Add lives and a lives counter instead of immediate reset.
-- Add horizontal lanes so cars spawn only at fixed y positions.
-- Add sound effects using `winsound` on Windows (or external lib) for collisions and level-up.
-- Persist high score or best level to disk.
-- Smooth difficulty curve by changing spawn rate and speed separately per level.
 
 ## Troubleshooting
 
