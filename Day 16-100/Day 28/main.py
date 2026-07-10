@@ -105,6 +105,8 @@ def _begin_countdown():
 
     is_running = True
     pause_btn.configure(state="normal")
+    # Lock duration sliders while session is active
+    _set_sliders_state("disabled")
     count_down()
 
 # ----------------------------- CONTROLS ----------------------------------- #
@@ -136,6 +138,8 @@ def on_reset():
     # Restore Start to clickable; Pause must stay disabled until a session starts
     start_btn.configure(text="Start", state="normal")
     pause_btn.configure(text="Pause", state="disabled")
+    # Unlock duration sliders when timer is reset
+    _set_sliders_state("normal")
 
 def on_pause_resume():
     """Pause a running countdown or resume a paused one."""
@@ -231,6 +235,92 @@ reset_btn = ctk.CTkButton(
 )
 reset_btn.grid(row=0, column=2, padx=12, pady=6)
 
-# (Settings sliders will be added in a later commit)
+# ----------------------------- SETTINGS PANEL ---------------------------- #
+
+def _set_sliders_state(state: str):
+    """Enable or disable all duration sliders ('normal' or 'disabled')."""
+    work_slider.configure(state=state)
+    short_slider.configure(state=state)
+    long_slider.configure(state=state)
+
+def on_work_slider(value):
+    global work_min
+    work_min = int(value)
+    work_val_label.configure(text=f"{work_min} min")
+
+def on_short_slider(value):
+    global short_break_min
+    short_break_min = int(value)
+    short_val_label.configure(text=f"{short_break_min} min")
+
+def on_long_slider(value):
+    global long_break_min
+    long_break_min = int(value)
+    long_val_label.configure(text=f"{long_break_min} min")
+
+# Slider state helper — defined early so both _begin_countdown and on_reset can
+# call it; actual slider widgets are captured in the list below after creation.
+_slider_widgets: list = []  # filled once sliders are built
+
+def _set_sliders_state(state: str):
+    """Enable or disable all duration sliders ('normal' or 'disabled')."""
+    for s in _slider_widgets:
+        s.configure(state=state)
+
+
+settings_frame = ctk.CTkFrame(app)
+settings_frame.pack(fill="x", padx=30, pady=(5, 15))
+
+settings_title = ctk.CTkLabel(
+    settings_frame,
+    text="Session Durations",
+    font=ctk.CTkFont(size=14, weight="bold"),
+)
+settings_title.pack(pady=(10, 4))
+
+def _make_slider_row(parent, label_text, from_, to, default, cmd):
+    """Helper to create a labelled slider row; returns (slider, value_label)."""
+    row = ctk.CTkFrame(parent, fg_color="transparent")
+    row.pack(fill="x", padx=15, pady=4)
+    row.grid_columnconfigure(1, weight=1)
+
+    lbl = ctk.CTkLabel(row, text=label_text, width=100, anchor="w",
+                        font=ctk.CTkFont(size=12))
+    lbl.grid(row=0, column=0, sticky="w")
+
+    slider = ctk.CTkSlider(row, from_=from_, to=to,
+                            number_of_steps=to - from_,
+                            command=cmd)
+    slider.set(default)
+    slider.grid(row=0, column=1, sticky="ew", padx=8)
+
+    val_lbl = ctk.CTkLabel(row, text=f"{default} min", width=50, anchor="e",
+                            font=ctk.CTkFont(size=12))
+    val_lbl.grid(row=0, column=2, sticky="e")
+    return slider, val_lbl
+
+work_slider,  work_val_label  = _make_slider_row(
+    settings_frame, "🍅 Work",        10, 60, WORK_MIN,        on_work_slider)
+short_slider, short_val_label = _make_slider_row(
+    settings_frame, "☕ Short Break",  1, 15, SHORT_BREAK_MIN,  on_short_slider)
+long_slider,  long_val_label  = _make_slider_row(
+    settings_frame, "🛌 Long Break",   5, 45, LONG_BREAK_MIN,   on_long_slider)
+
+# Register sliders so _set_sliders_state can reach them
+_slider_widgets.extend([work_slider, short_slider, long_slider])
+
+# Appearance mode toggle
+appearance_row = ctk.CTkFrame(settings_frame, fg_color="transparent")
+appearance_row.pack(fill="x", padx=15, pady=(6, 10))
+
+ctk.CTkLabel(appearance_row, text="Appearance:",
+             font=ctk.CTkFont(size=12)).pack(side="left")
+ctk.CTkOptionMenu(
+    appearance_row,
+    values=["System", "Dark", "Light"],
+    command=ctk.set_appearance_mode,
+    width=110,
+).pack(side="right")
+
 
 app.mainloop()
