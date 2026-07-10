@@ -320,9 +320,11 @@ class LoginFrame(ctk.CTkFrame):
             
         try:
             decrypted_data = crypto_db.load_db(pwd)
-            self.controller.login_success(pwd, decrypted_data)
         except Exception:
             self.error_label.configure(text="Incorrect Master Password. Please try again.")
+            return
+            
+        self.controller.login_success(pwd, decrypted_data)
 
 
 class DashboardFrame(ctk.CTkFrame):
@@ -496,7 +498,7 @@ class DashboardFrame(ctk.CTkFrame):
             text="⚡ Generate Password", 
             command=self.generate_password
         )
-        self.gen_btn.grid(row=2, column=0, columnspan=3, fill="x", padx=15, pady=(5, 12))
+        self.gen_btn.grid(row=2, column=0, columnspan=3, sticky="ew", padx=15, pady=(5, 12))
         
         # CRUD Actions Buttons Frame
         actions_frame = ctk.CTkFrame(content_scroll, fg_color="transparent")
