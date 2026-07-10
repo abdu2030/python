@@ -77,8 +77,9 @@ def count_down():
         remaining -= 1
         timer_id = app.after(1000, count_down)
     else:
-        # Session finished
+        # Session finished — disable controls until next rep starts
         is_running = False
+        pause_btn.configure(state="disabled", text="Pause")
         sound_manager.play_session_end()
         update_checkmarks()
         start_next_session()
@@ -103,6 +104,7 @@ def _begin_countdown():
         remaining = work_min * 60
 
     is_running = True
+    pause_btn.configure(state="normal")
     count_down()
 
 # ----------------------------- CONTROLS ----------------------------------- #
@@ -114,10 +116,11 @@ def on_start():
         return
     reps += 1
     start_btn.configure(text="Running…", state="disabled")
+    pause_btn.configure(state="normal")
     _begin_countdown()
 
 def on_reset():
-    """Cancel any active timer and reset all state."""
+    """Cancel any active timer and fully reset state."""
     global reps, timer_id, is_running, is_paused, remaining
     sound_manager.play_button_click()
     if timer_id:
@@ -130,6 +133,7 @@ def on_reset():
     timer_text.configure(text="00:00")
     session_title.configure(text="Timer", text_color=COLOR_IDLE)
     checks_label.configure(text="")
+    # Restore Start to clickable; Pause must stay disabled until a session starts
     start_btn.configure(text="Start", state="normal")
     pause_btn.configure(text="Pause", state="disabled")
 
