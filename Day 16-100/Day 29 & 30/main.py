@@ -754,7 +754,7 @@ class PasswordManagerApp(ctk.CTk):
     def __init__(self):
         super().__init__()
         
-        self.title("Antigravity Secure Password Manager")
+        self.title("AKA Secure Password Manager")
         self.geometry("900x600")
         self.resizable(False, False)
         
