@@ -759,12 +759,11 @@ class PasswordManagerApp(ctk.CTk):
         self.resizable(False, False)
         
         # Center the window
-        self.update_idletasks()
-        width = self.winfo_width()
-        height = self.winfo_height()
+        width = 900
+        height = 600
         x = (self.winfo_screenwidth() // 2) - (width // 2)
         y = (self.winfo_screenheight() // 2) - (height // 2)
-        self.geometry(f"+{x}+{y}")
+        self.geometry(f"{width}x{height}+{x}+{y}")
 
         self.master_pwd = None
         self.db_data = {}
