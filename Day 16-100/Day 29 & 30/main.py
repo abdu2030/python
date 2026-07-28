@@ -1,5 +1,4 @@
 import os
-import sys
 import tkinter as tk
 from tkinter import messagebox, filedialog
 import customtkinter as ctk
@@ -458,8 +457,11 @@ class DashboardFrame(ctk.CTkFrame):
         self.strength_label.grid(row=0, column=1, padx=(10, 0))
         
         # Password Generator Section
-        gen_frame = ctk.CTkLabelFrame(content_scroll, text="Password Generator Settings")
-        gen_frame.grid(row=5, column=0, columnspan=2, sticky="ew", padx=10, pady=15)
+        gen_label = ctk.CTkLabel(content_scroll, text="Password Generator Settings", font=ctk.CTkFont(weight="bold"))
+        gen_label.grid(row=5, column=0, columnspan=2, sticky="w", padx=10, pady=(15, 5))
+         
+        gen_frame = ctk.CTkFrame(content_scroll)
+        gen_frame.grid(row=6, column=0, columnspan=2, sticky="ew", padx=10, pady=(5, 15))
         
         gen_frame.grid_columnconfigure(0, weight=1)
         gen_frame.grid_columnconfigure(1, weight=1)
@@ -502,7 +504,7 @@ class DashboardFrame(ctk.CTkFrame):
         
         # CRUD Actions Buttons Frame
         actions_frame = ctk.CTkFrame(content_scroll, fg_color="transparent")
-        actions_frame.grid(row=6, column=0, columnspan=2, sticky="ew", padx=10, pady=5)
+        actions_frame.grid(row=7, column=0, columnspan=2, sticky="ew", padx=10, pady=5)
         
         actions_frame.grid_columnconfigure(0, weight=1)
         actions_frame.grid_columnconfigure(1, weight=1)
@@ -539,7 +541,7 @@ class DashboardFrame(ctk.CTkFrame):
         
         # Import, Export, Change Master Password Utilities
         utils_frame = ctk.CTkFrame(content_scroll, fg_color="transparent")
-        utils_frame.grid(row=7, column=0, columnspan=2, sticky="ew", padx=10, pady=10)
+        utils_frame.grid(row=8, column=0, columnspan=2, sticky="ew", padx=10, pady=10)
         utils_frame.grid_columnconfigure(0, weight=1)
         utils_frame.grid_columnconfigure(1, weight=1)
         utils_frame.grid_columnconfigure(2, weight=1)
@@ -623,7 +625,7 @@ class DashboardFrame(ctk.CTkFrame):
                 )
                 btn.pack(fill="x", padx=5, pady=2)
 
-    def filter_sidebar(self):
+    def filter_sidebar(self, name=None, index=None, mode=None):
         self.update_sidebar_list()
 
     def load_website(self, website_name):
