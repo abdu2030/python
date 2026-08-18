@@ -22,4 +22,5 @@ for hour_data in weather_data["list"]:
         will_rain = True
 if will_rain:
     print("Bring an Umbrela")
+#DAY 35 NOT COMPLETE FROM 272-276 Cause twilio doesn't have free trial in ETH
 
